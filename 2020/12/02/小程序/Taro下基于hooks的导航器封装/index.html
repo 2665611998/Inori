@@ -1,0 +1,225 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0"><title>Taro下基于hooks的导航器封装 - 小春日和の秘密基地</title><meta name="description" content="原始导航实在是太难用了！"><link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.8.55/css/materialdesignicons.min.css"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><link rel="stylesheet" href="/libs/normalize.css?0.8104381999560561"><link rel="stylesheet" href="/libs/flex.css?0.5797326128365696"><link rel="stylesheet" href="/libs/material-components-web.min.css?0.11868754283177085"><link rel="stylesheet" href="/libs/mdc.tooltip.min.css?0.6804628540876401"><link rel="stylesheet" href="/libs/prism.css?0.8391335487862224"><link rel="stylesheet" href="/styles/commons/index.css?0.19369438731232202"><link rel="stylesheet" href="/styles/templates/index.css?0.278243020406284"><link rel="stylesheet" href="/styles/partial/index.css?0.18823483894635795"><link rel="stylesheet" href="/styles/layout.css?0.12400417435174349"><script src="/libs/jquery.min.js?0.9596898379399488"></script><script src="/libs/material-components-web.min.js?0.12724456680720486"></script><script src="/libs/mdc.tooltip.min.js?0.09978995319145523"></script><script src="/libs/prism.min.js?0.6034963891841993"></script><script src="/scripts/uiRender.js?0.828469198145567"></script><meta name="generator" content="Hexo 5.0.2"></head><body><img class="page-bgImg" src="/sourceImages/bg.png"><header class="mdc-top-app-bar mdc-top-app-bar--fixed mdc-elevation--z4"><div class="mdc-top-app-bar__row"><section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start"><button id="drawerButton" class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button> <a class="mdc-top-app-bar__title" href="/" style="color:#fff">小春日和の秘密基地</a></section><section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end"><button id="searchButton" class="material-icons mdc-top-app-bar__action-item mdc-icon-button">search</button></section></div></header><div class="mainContainer flex-row"><div class="page-drawer"><div class="drawer-placeholder"></div><aside class="mdc-drawer drawer-body mdc-elevation--z4"><div class="drawer-header flex-column flex-evenly"><div class="drawer-header--content flex-column flex-cross-center"><img class="drawer-avatar" src="/sourceImages/avatar.png"><div class="drawer-userName">小春日和</div><div class="drawer-totals flex-row flex-cross-center"><div class="flex flex-column flex-center"><div class="drawer-totals--label">文章</div><div class="drawer-totals--value">共7篇</div></div><div class="flex flex-column flex-center"><div class="drawer-totals--label">标签</div><div class="drawer-totals--value">共10个</div></div><div class="flex flex-column flex-center" id="busuanzi_container_site_pv"><div class="drawer-totals--label" style="text-align:center">总访问</div><div class="drawer-totals--value" style="text-align:center"><span id="busuanzi_value_site_pv"></span><span>次</span></div></div></div></div></div><div class="drawer-content"><div class="drawer-list"><a class="drawer-list-item flex-row flex-cross-center materialRipple materialRipple--dark com-pointer" href="/"><i class="list-item--icon material-icons">home</i><span class="list-item--title">首页</span></a><a class="drawer-list-item flex-row flex-cross-center materialRipple materialRipple--dark com-pointer" href="/2020/08/24/日常/再次启程"><i class="list-item--icon material-icons">info</i><span class="list-item--title">关于博客 </span></a><a class="drawer-list-item flex-row flex-cross-center materialRipple materialRipple--dark com-pointer" target="_blank" rel="noopener" href="https://github.com/koharubiyori"><i class="mdi-set mdi-github" style="font-size:24px;color:var(--mdc-theme-primary);line-height:1.1"></i><span class="list-item--title">Github</span></a><a class="drawer-list-item flex-row flex-cross-center materialRipple materialRipple--dark com-pointer" target="_blank" rel="noopener" href="https://zh.moegirl.org.cn/User:%E6%9D%B1%E6%9D%B1%E5%90%9B"><strong style="font-size:18px;color:var(--mdc-theme-primary);margin-left:3px">萌</strong><span class="list-item--title">萌娘百科</span></a></div></div></aside></div><main class="mainContent flex"><div class="page-post"><link rel="stylesheet" href="/styles/post.css?0.3576977185253807"><div class="post-header"><h2 class="post-header--title">Taro下基于hooks的导航器封装</h2><div class="post-header--row com-onlyDesktop"><div class="post-header--infoBox" style="background-color:#007fff"><i class="material-icons">watch_later</i><span>2020年12月02日</span></div><div class="post-header--infoBox" style="background-color:#04b431"><i class="material-icons">menu_book</i><span>总字数：2k</span></div><div class="post-header--infoBox" style="background-color:#b40486"><i class="material-icons">access_alarm</i><span>预计阅读时间：29分钟</span></div></div><div class="post-header--row post-header--tags" style="justify-content:flex-start;margin-top:10px"><a class="post-header--tag" href="/tags/React/" title="查看“React”标签下的文章"><i class="material-icons">local_offer</i><span>React</span></a><a class="post-header--tag" href="/tags/小程序/" title="查看“小程序”标签下的文章"><i class="material-icons">local_offer</i><span>小程序</span></a><a class="post-header--tag" href="/tags/Taro/" title="查看“Taro”标签下的文章"><i class="material-icons">local_offer</i><span>Taro</span></a></div></div><div class="post-body mdc-elevation--z2"><img class="post-body--headImg" src="/2020/12/02/小程序/Taro下基于hooks的导航器封装/head.jpg" style="object-position:undefined"><div class="post-body--content"><div class="contentContainer"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>浑浑噩噩一年又要过去了，前些日子终于又找到了工作，只是进了公司维护垃圾代码实在是糟心，尤其是改之前的bug时，<br>恨不得把那个写垃圾代码的揪出来打一顿。</p><h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>原生小程序以及各类第三方框架中，导航传参都是以在页面路径后加查询字符串进行传参的方式，直接用非常难受，并且进行页面间通信也非常麻烦，<br>这里和大家分享下我在使用Taro开发小程序时封装的一个基于Hooks的导航器。</p><h3 id="封装导航"><a href="#封装导航" class="headerlink" title="封装导航"></a>封装导航</h3><p>首先要解决的就是路由传参问题（令我震惊的是，目前待过的三家公司项目中居然都是直接手拼字符串），我目前见过有封装函数帮助序列化参数，或者将参数存入Storage的手段，个人认为两种方式均有一些弊端，第一个传输数据过大会导致出现错误，第二个会导致路由参数残留在缓存中，并且这两种都不能传递无法序列化的对象。经过一番摸索，发现将参数保存在对象中是比较好的方式。</p><p>这里将参数放在一个对象中，字段名使用对应路由名，值为当前的路由参数：</p><pre class="line-numbers language-ts" data-language="ts"><code class="language-ts">import Taro, &#123; useRouter &#125; from &#39;@tarojs&#x2F;taro&#39;
+
+&#x2F;&#x2F; 存放所有路由参数
+const routeParams &#x3D; &#123;&#125;
+
+&#x2F;&#x2F; 路径辅助方法，只留路径主体，页面文件约定都为index
+const basePath &#x3D; (path: string) &#x3D;&gt; &#96;&#x2F;pages&#x2F;$&#123;path&#125;&#x2F;index&#96;
+const debasePath &#x3D; (path: string) &#x3D;&gt; path.replace(&#x2F;^\&#x2F;?pages\&#x2F;(.+)\&#x2F;index$&#x2F;, &#39;$1&#39;)
+
+&#x2F;&#x2F; 路由方法工厂
+const createNavigator &#x3D; method &#x3D;&gt; &#123;
+  return (path, params) &#x3D;&gt; &#123;
+    &#x2F;&#x2F; 每次跳转时都要给一个空对象，防止在没传参进入页面时拿到上一次传了的参数
+    routeParams[path] &#x3D; params || &#123;&#125;
+    return Taro[method](&#123; url: basePath(path) &#125;)
+  &#125;
+&#125;
+
+&#x2F;&#x2F; 后退方法要单独封装，由于我们自己封装请求器，这里顺便实现了个后退时传参
+const back &#x3D; (delta &#x3D; 1, params) &#x3D;&gt; &#123;
+  const pages &#x3D; Taro.getCurrentPages()
+  const isBackHome &#x3D; pages.length - delta &lt; 1
+  &#x2F;&#x2F; 如果后退的步数大于页面栈的总数，则回到首页，这和navigateBack的行为是一致的
+  const targetPagePath &#x3D; isBackHome ? basePath(&#39;home&#39;) : (pages[pages.length - 1 - delta]).route
+  routeParams[basePath(path)] &#x3D; params || &#123;&#125;
+  return isBackHome ? Taro.reLaunch(&#123; url: basePath(&#39;home&#39;) &#125;) : Taro.navigateBack(&#123; delta &#125;)
+&#125;
+
+&#x2F;&#x2F; 这个对象也可以单独导出，方便非hook组件中使用
+const navigation &#x3D; &#123;
+  push: createNavigator(&#39;navigateTo&#39;),
+  replace: createNavigator(&#39;redirectTo&#39;),
+  &#x2F;&#x2F; 由于我们自己封装请求器，switchTab也可以传参了
+  switchTab: createNavigator(&#39;switchTab&#39;),
+  reLaunch: createNavigator(&#39;reLaunch&#39;),
+  back
+&#125;
+
+function useMyRouter() &#123;
+  &#x2F;&#x2F; 使用Taro提供的这个钩子拿到关于路由的一些数据
+  const plainRouter &#x3D; useRouter()
+
+  const getParams &#x3D; () &#x3D;&gt; (&#123;
+    &#x2F;&#x2F; 通过当前路径取出参数
+    ...routeParams[debasePath(plainRouter.path)],
+    &#x2F;&#x2F; 这个字段会接到外部场景传来的参数(如扫码等)，要一起提供出去
+    ...plainRouter.params
+  &#125;)
+
+  return &#123;
+    path: plainRouter.path, &#x2F;&#x2F; 当前路由路径，注意这个path没有开头的斜线
+    params: getParams(),  &#x2F;&#x2F; 当前路由的参数
+    &#x2F;&#x2F; 再获取一次路由的参数，由于我们使用了对象进行参数保存，可以在useDidShow中使用，实现后退时传参，
+    &#x2F;&#x2F; 或通过附加一些路由监听手段活用这个方法，下面会介绍
+    getParams,  
+    ...navigation,  &#x2F;&#x2F; 附加导航方法
+  &#125;
+&#125;</code></pre><p>以上就实现了一个自定义对象保存路由参数的导航器。</p><h3 id="路由参数变化监听"><a href="#路由参数变化监听" class="headerlink" title="路由参数变化监听"></a>路由参数变化监听</h3><p>原生导航使用EventChannel作为新开页面与上一个页面的通信方式，依靠在EventChannel上订阅及触发事件的方式进行数据传递，虽说直接使用也还算可以，但只能在两个页面之间通信，个人感觉还是不够便捷。</p><p>要实现参数变化的监听就必须依赖一个观察者模式的模型，这里我使用了redux保存参数对象。</p><pre class="line-numbers language-ts" data-language="ts"><code class="language-ts">&#x2F;&#x2F; 向redux store中添加route模块，代替routeParams对象来存储路由参数。
+
+&#x2F;&#x2F; redux&#x2F;route&#x2F;index
+export const SET_ROUTE_PARAMS &#x3D; Symbol()
+
+export const reducer &#x3D; (state &#x3D; &#123;
+  pageParams: &#123;&#125;
+&#125;, action) &#x3D;&gt; &#123;
+  switch(action.type) &#123;
+    case SET_ROUTE_PARAMS: &#123;
+      return &#123;
+        ...state.pageParams,
+        [action.path]: action.params
+      &#125;
+    &#125;
+  &#125;
+&#125;
+
+&#x2F;&#x2F; redux&#x2F;route&#x2F;actions
+import store from &#39;~&#x2F;redux&#x2F;index&#39;
+import &#123; SET_ROUTE_PARAMS &#125; from &#39;.&#x2F;index&#39;
+
+export const routeActions &#x3D; &#123;
+  &#x2F;&#x2F; 进行一次简单封装
+  setParams(path, params) &#123;
+    store.dispatch(&#123; type: SET_ROUTE_PARAMS, path, params &#125;)
+  &#125;
+&#125;</code></pre><p>接下来实现监听参数变化的方法：</p><pre class="line-numbers language-ts" data-language="ts"><code class="language-ts">&#x2F;&#x2F; 在useMyRouter内部，最后加到返回的对象中
+const onParamsChange &#x3D; handler &#x3D;&gt; &#x3D;&gt; &#123;
+  &#x2F;&#x2F; 缓存上一次的状态
+  let lastRouteState &#x3D; null
+
+  return store.subscribe(() &#x3D;&gt; &#123;
+    const currentRouteState &#x3D; store.getState().route
+    const currentParams &#x3D; currentRouteState.pageParams[debasePath(plainRouter.path!)]
+
+    &#x2F;&#x2F; 开始进行上一次状态与本次状态的对比
+    let isChanged &#x3D; false
+    if (currentParams &#x3D;&#x3D;&#x3D; undefined) &#123; return &#125;
+
+    if (lastRouteState &#x3D;&#x3D;&#x3D; null || lastRouteState.pageParams[debasePath(plainRouter.path!)] &#x3D;&#x3D;&#x3D; undefined) &#123;
+      isChanged &#x3D; true
+    &#125; else &#123;
+      const lastParams &#x3D; lastRouteState.pageParams[debasePath(plainRouter.path!)]
+
+      &#x2F;&#x2F; 进行一次浅比较
+      for (let key in currentParams) &#123;
+        if (Object.is(currentParams[key], lastParams[key]) &#x3D;&#x3D;&#x3D; false) &#123;
+          isChanged &#x3D; true
+          break
+        &#125;
+      &#125;
+    &#125;
+
+    const prevParams &#x3D; lastRouteState ? 
+      lastRouteState.pageParams[debasePath(plainRouter.path!)] :
+      undefined
+
+    isChanged &amp;&amp; handler(currentParams, prevParams)
+    lastRouteState &#x3D; currentRouteState
+  &#125;)
+&#125;</code></pre><p>以上就完成了导航器的封装。</p><p>最后这里是一个使用ts的完整封装导航器实现：</p><pre class="line-numbers language-ts" data-language="ts"><code class="language-ts">import Taro, &#123; useRouter &#125; from &#39;@tarojs&#x2F;taro&#39;
+import store from &#39;~&#x2F;redux&#39;
+import routeActions from &#39;~&#x2F;redux&#x2F;route&#x2F;actions&#39;  &#x2F;&#x2F; 请自行向redux添加模块
+import &#123; Unsubscribe &#125; from &#39;redux&#39;
+
+&#x2F;&#x2F; 导航器的泛型，路由路径映射路由参数。这个请自己实现
+interface RouteParamsMaps &#123;
+  [routePath: string]: object
+&#125;
+
+type MyNavigate &#x3D; &lt;
+  Path extends keyof RouteParamsMaps, 
+  Params extends RouteParamsMaps[Path]
+&gt;(path: Path, params?: Params) &#x3D;&gt; Promise&lt;void&gt;
+
+export interface MyRouter&lt;
+  Params &#x3D; &#123; [key: string]: any &#125;
+&gt; &#123;
+  path: string
+  params: Params
+  getParams(): Params
+  push: MyNavigate
+  replace: MyNavigate
+  switchTab: MyNavigate
+  reLaunch: MyNavigate
+  back(delta?: number, params?: &#123; [key: string]: any &#125;): Promise&lt;void&gt;
+  onParamsChange(handler: (params: Params, prevParams?: Params) &#x3D;&gt; void): Unsubscribe
+&#125;
+
+const basePath &#x3D; (path: string) &#x3D;&gt; &#96;&#x2F;pages&#x2F;$&#123;path&#125;&#x2F;index&#96;
+const debasePath &#x3D; (path: string) &#x3D;&gt; path.replace(&#x2F;^\&#x2F;?pages\&#x2F;(.+)\&#x2F;index$&#x2F;, &#39;$1&#39;)
+const createNavigator &#x3D; (method: &#39;navigateTo&#39; | &#39;redirectTo&#39; | &#39;switchTab&#39; | &#39;reLaunch&#39;): MyNavigate &#x3D;&gt; &#123;
+  return (path, params) &#x3D;&gt; &#123;
+    routeActions.setParams(path, params || &#123;&#125; as any)
+    return Taro[method](&#123; url: basePath(path) &#125;) as any
+  &#125;
+&#125;
+
+const back: MyRouter[&#39;back&#39;] &#x3D; (delta &#x3D; 1, params) &#x3D;&gt; &#123;
+  const pages &#x3D; Taro.getCurrentPages()
+  const isBackHome &#x3D; pages.length - delta &lt; 1
+  &#x2F;&#x2F; 如果后退的步数大于页面栈的总数，则回到首页，这和navigateBack的行为是一致的
+  const targetPagePath &#x3D; isBackHome ? basePath(&#39;home&#39;) : (pages[pages.length - 1 - delta]).route
+  routeActions.setParams(debasePath(targetPagePath) as any, params || &#123;&#125; as any)
+  return isBackHome ? Taro.reLaunch(&#123; url: basePath(&#39;home&#39;) &#125;) : Taro.navigateBack(&#123; delta &#125;) as any
+&#125;
+
+export const navigation &#x3D; &#123;
+  push: createNavigator(&#39;navigateTo&#39;),
+  replace: createNavigator(&#39;redirectTo&#39;),
+  switchTab: createNavigator(&#39;switchTab&#39;),
+  reLaunch: createNavigator(&#39;reLaunch&#39;),
+  back
+&#125;
+
+export default function useMyRouter&lt;RouteParams &#x3D; &#123; [key: string]: any &#125;&gt;(): MyRouter&lt;RouteParams&gt; &#123;
+  const plainRouter &#x3D; useRouter()
+
+
+  &#x2F;&#x2F; 监听当前路由的参数变化
+  const onParamsChange &#x3D; (handler: (params: RouteParams, prevParams?: RouteParams) &#x3D;&gt; void) &#x3D;&gt; &#123;
+    let lastRouteState: any &#x3D; null
+
+    return store.subscribe(() &#x3D;&gt; &#123;
+      const currentRouteState &#x3D; store.getState().route
+      const currentParams &#x3D; currentRouteState.pageParams[debasePath(plainRouter.path!)]
+
+      let isChanged &#x3D; false
+      if (currentParams &#x3D;&#x3D;&#x3D; undefined) &#123; return &#125;
+
+      if (lastRouteState &#x3D;&#x3D;&#x3D; null || lastRouteState.pageParams[debasePath(plainRouter.path!)] &#x3D;&#x3D;&#x3D; undefined) &#123;
+        isChanged &#x3D; true
+      &#125; else &#123;
+        const lastParams &#x3D; lastRouteState.pageParams[debasePath(plainRouter.path!)]
+
+        &#x2F;&#x2F; 进行一次浅比较
+        for (let key in currentParams) &#123;
+          if (Object.is(currentParams[key], lastParams[key]) &#x3D;&#x3D;&#x3D; false) &#123;
+            isChanged &#x3D; true
+            break
+          &#125;
+        &#125;
+      &#125;
+
+      const prevParams &#x3D; lastRouteState ? 
+        lastRouteState.pageParams[debasePath(plainRouter.path!)] :
+        undefined
+
+      isChanged &amp;&amp; handler(currentParams, prevParams)
+      lastRouteState &#x3D; currentRouteState
+    &#125;)
+  &#125;
+
+  const getParams &#x3D; () &#x3D;&gt; (&#123;
+    ...routeParams[debasePath(plainRouter.path)],
+    ...plainRouter.params
+  &#125;)
+
+  return &#123;
+    path: plainRouter.path!,
+    params: getParams(),
+    getParams,
+    ...navigation,
+    onParamsChange
+  &#125;
+&#125;
+</code></pre></div><div class="articleLicenses"><p>版权声明：本文为原创文章，版权归 小春日和 所有</p><p style="word-break:break-all"><span>文章链接：</span><a id="articleLink" href="javascript:void()" aria-describedby="tooltip-copyArticleLink">https://koharubiyori.gitee.io/2020/12/02/小程序/Taro下基于hooks的导航器封装/</a></p><p><span>所有原创文章采用&nbsp;</span><a target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh">署名-非商业性使用 4.0 国际 (CC BY-NC 4.0)</a></p><p>您可以自由转载和修改，但必须保证在显著位置注明文章来源，且不能用于商业目的。</p><div id="tooltip-copyArticleLink" class="mdc-tooltip" role="tooltip" aria-hidden="true"><div class="mdc-tooltip__surface"><lorem>点击复制链接</lorem></div></div></div></div></div><div class="prevNextArticle flex-row flex-between"><a class="prevArticle materialRipple materialRipple--dark mdc-elevation--z2 flex" href="/2020/12/04/React/React class组件中复用状态及生命周期/" title="React class组件中复用状态及生命周期"><div class="label">上一篇</div><div class="title com-textLimit">React class组件中复用状态及生命周期</div></a><a class="nextArticle materialRipple materialRipple--dark mdc-elevation--z2 flex" href="/2020/10/10/JavaScript/ServiceWorker的基本使用/" title="ServiceWorker的基本使用"><div class="label">下一篇</div><div class="title com-textLimit">ServiceWorker的基本使用</div></a></div><div id="post-comments"></div></div></main><div class="page-sidebar"><div class="sidebar-placeholder"></div><div class="sidebar-body mdc-elevation--z4"><div class="articleContents"><div class="articleContents-title">目录</div></div><div class="katakoto"><div class="katakoto-title">只言片语</div><div class="katakoto-items"><div class="katakoto-item"><div class="katakoto-item--content">第三次重建博客，希望这次不会没写多少东西就又关了...</div><div class="katakoto-item--date">—— 2020年08月24日 14:59</div></div><div class="katakoto-item"><div class="katakoto-item--content">打工人这个词，从无产者口中说出来是自嘲；从资本家口中说出来是压迫。</div><div class="katakoto-item--date">—— 2020年11月21日 09:33</div></div><div class="katakoto-item"><div class="katakoto-item--content">站在屎山上只能选择继续拉屎，这样最坏的结果也只是踩到自己拉的屎。如果尝试去清理这座屎山，将会掉到这座屎山的中心去。</div><div class="katakoto-item--date">—— 2020年11月21日 09:35</div></div></div></div><div class="tags"><div class="tags-title">内容标签</div><a class="tags-item" href="/tags/JavaScript/" title="查看“JavaScript”标签下的文章"><i class="material-icons">local_offer</i><span>JavaScript</span></a><a class="tags-item" href="/tags/前端/" title="查看“前端”标签下的文章"><i class="material-icons">local_offer</i><span>前端</span></a><a class="tags-item" href="/tags/React/" title="查看“React”标签下的文章"><i class="material-icons">local_offer</i><span>React</span></a><a class="tags-item" href="/tags/Typescript/" title="查看“Typescript”标签下的文章"><i class="material-icons">local_offer</i><span>Typescript</span></a><a class="tags-item" href="/tags/Vue-js/" title="查看“Vue.js”标签下的文章"><i class="material-icons">local_offer</i><span>Vue.js</span></a><a class="tags-item" href="/tags/前端技术/" title="查看“前端技术”标签下的文章"><i class="material-icons">local_offer</i><span>前端技术</span></a><a class="tags-item" href="/tags/TypeScript/" title="查看“TypeScript”标签下的文章"><i class="material-icons">local_offer</i><span>TypeScript</span></a><a class="tags-item" href="/tags/小程序/" title="查看“小程序”标签下的文章"><i class="material-icons">local_offer</i><span>小程序</span></a><a class="tags-item" href="/tags/Taro/" title="查看“Taro”标签下的文章"><i class="material-icons">local_offer</i><span>Taro</span></a><a class="tags-item" href="/tags/日常/" title="查看“日常”标签下的文章"><i class="material-icons">local_offer</i><span>日常</span></a></div></div></div><div class="page-search"><div class="search-body"><div class="search-input-container flex-row flex-cross-center"><i class="material-icons">search</i><input class="search-input flex" placeholder="搜索文章..."></div><div class="search-result" data-dirty="false" data-emptyresult="false"></div></div></div></div><div class="backTopButton mdc-elevation--z4 flex-row flex-center is-hide materialRipple"><i class="material-icons">north</i></div></body></html>

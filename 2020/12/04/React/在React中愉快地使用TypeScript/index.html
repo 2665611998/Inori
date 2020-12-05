@@ -1,0 +1,147 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0"><title>在React中愉快地使用TypeScript - 小春日和の秘密基地</title><meta name="description" content="今日はチノちゃんの誕生日だ！"><link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.8.55/css/materialdesignicons.min.css"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><link rel="stylesheet" href="/libs/normalize.css?0.511496931672369"><link rel="stylesheet" href="/libs/flex.css?0.4341780903560777"><link rel="stylesheet" href="/libs/material-components-web.min.css?0.289893228504714"><link rel="stylesheet" href="/libs/mdc.tooltip.min.css?0.237365973102303"><link rel="stylesheet" href="/libs/prism.css?0.074613260999433"><link rel="stylesheet" href="/styles/commons/index.css?0.12133493312654364"><link rel="stylesheet" href="/styles/templates/index.css?0.7159586825273707"><link rel="stylesheet" href="/styles/partial/index.css?0.32685351181522226"><link rel="stylesheet" href="/styles/layout.css?0.3580135997673295"><script src="/libs/jquery.min.js?0.8459011095229785"></script><script src="/libs/material-components-web.min.js?0.3934041148102003"></script><script src="/libs/mdc.tooltip.min.js?0.1038527072752311"></script><script src="/libs/prism.min.js?0.5736294896221941"></script><script src="/scripts/uiRender.js?0.607761511509016"></script><meta name="generator" content="Hexo 5.0.2"></head><body><img class="page-bgImg" src="/sourceImages/bg.png"><header class="mdc-top-app-bar mdc-top-app-bar--fixed mdc-elevation--z4"><div class="mdc-top-app-bar__row"><section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start"><button id="drawerButton" class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button> <a class="mdc-top-app-bar__title" href="/" style="color:#fff">小春日和の秘密基地</a></section><section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end"><button id="searchButton" class="material-icons mdc-top-app-bar__action-item mdc-icon-button">search</button></section></div></header><div class="mainContainer flex-row"><div class="page-drawer"><div class="drawer-placeholder"></div><aside class="mdc-drawer drawer-body mdc-elevation--z4"><div class="drawer-header flex-column flex-evenly"><div class="drawer-header--content flex-column flex-cross-center"><img class="drawer-avatar" src="/sourceImages/avatar.png"><div class="drawer-userName">小春日和</div><div class="drawer-totals flex-row flex-cross-center"><div class="flex flex-column flex-center"><div class="drawer-totals--label">文章</div><div class="drawer-totals--value">共7篇</div></div><div class="flex flex-column flex-center"><div class="drawer-totals--label">标签</div><div class="drawer-totals--value">共10个</div></div><div class="flex flex-column flex-center" id="busuanzi_container_site_pv"><div class="drawer-totals--label" style="text-align:center">总访问</div><div class="drawer-totals--value" style="text-align:center"><span id="busuanzi_value_site_pv"></span><span>次</span></div></div></div></div></div><div class="drawer-content"><div class="drawer-list"><a class="drawer-list-item flex-row flex-cross-center materialRipple materialRipple--dark com-pointer" href="/"><i class="list-item--icon material-icons">home</i><span class="list-item--title">首页</span></a><a class="drawer-list-item flex-row flex-cross-center materialRipple materialRipple--dark com-pointer" href="/2020/08/24/日常/再次启程"><i class="list-item--icon material-icons">info</i><span class="list-item--title">关于博客 </span></a><a class="drawer-list-item flex-row flex-cross-center materialRipple materialRipple--dark com-pointer" target="_blank" rel="noopener" href="https://github.com/koharubiyori"><i class="mdi-set mdi-github" style="font-size:24px;color:var(--mdc-theme-primary);line-height:1.1"></i><span class="list-item--title">Github</span></a><a class="drawer-list-item flex-row flex-cross-center materialRipple materialRipple--dark com-pointer" target="_blank" rel="noopener" href="https://zh.moegirl.org.cn/User:%E6%9D%B1%E6%9D%B1%E5%90%9B"><strong style="font-size:18px;color:var(--mdc-theme-primary);margin-left:3px">萌</strong><span class="list-item--title">萌娘百科</span></a></div></div></aside></div><main class="mainContent flex"><div class="page-post"><link rel="stylesheet" href="/styles/post.css?0.8680271423217301"><div class="post-header"><h2 class="post-header--title">在React中愉快地使用TypeScript</h2><div class="post-header--row com-onlyDesktop"><div class="post-header--infoBox" style="background-color:#007fff"><i class="material-icons">watch_later</i><span>2020年12月04日</span></div><div class="post-header--infoBox" style="background-color:#04b431"><i class="material-icons">menu_book</i><span>总字数：1.7k</span></div><div class="post-header--infoBox" style="background-color:#b40486"><i class="material-icons">access_alarm</i><span>预计阅读时间：23分钟</span></div></div><div class="post-header--row post-header--tags" style="justify-content:flex-start;margin-top:10px"><a class="post-header--tag" href="/tags/React/" title="查看“React”标签下的文章"><i class="material-icons">local_offer</i><span>React</span></a><a class="post-header--tag" href="/tags/TypeScript/" title="查看“TypeScript”标签下的文章"><i class="material-icons">local_offer</i><span>TypeScript</span></a></div></div><div class="post-body mdc-elevation--z2"><img class="post-body--headImg" src="/2020/12/04/React/在React中愉快地使用TypeScript/head.jpg" style="object-position:center 21%"><div class="post-body--content"><div class="contentContainer"><p>图片来源：<a target="_blank" rel="noopener" href="https://www.pixiv.net/artworks/73737464">pixiv:💒 作者：もくず</a></p><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在网上看过一个段子：“使用vue，很好；使用ts，非常好；使用vue + ts，爆炸”，虽然这篇文章的主角不是Vue，但这个段子也足以说明一个问题：ts在和框架结合时，会遇到一系列的类型问题。ts的类型系统是个类型链，一旦这个类型链中断了后续就会失去对类型的约束和提示，vue在模板语法中使用了一些“魔术”语法，导致类型系统在数据和模板之间出现了断层，这也是为什么vue难以和vue结合的原因。相比之下React因为使用了jsx语法，本质上等同于js语句，这样就使ts和react较好地结合(实际上还是靠ts主动适配的jsx语法)，但是刚开始一个项目时，还是会遭遇到一系列类型问题，这里就总结一下react + ts的常见问题。</p><h2 id="组件基本props类型及Component泛型"><a href="#组件基本props类型及Component泛型" class="headerlink" title="组件基本props类型及Component泛型"></a>组件基本props类型及Component泛型</h2><p><code>React.Component</code>中有三个泛型：</p><pre class="line-numbers language-ts" data-language="ts"><code class="language-ts">type MyComponent &#x3D; React.Component&lt;Props, State, SnapShot&gt;</code></pre><ul><li><code>Props</code>：组件参数，最常用的就是这个</li><li><code>State</code>：组件状态，在一些高阶组件向state注入成员时会用到</li><li><code>SnapShot</code>：快照类型，也就是当使用有返回值的<code>getSnapshotBeforeUpdate</code>时<code>componentDidUpdate</code>接到的第三个参数的类型(参见：[<a target="_blank" rel="noopener" href="https://zh-hans.reactjs.org/docs/react-component.html#getsnapshotbeforeupdate]">https://zh-hans.reactjs.org/docs/react-component.html#getsnapshotbeforeupdate]</a>)</li></ul><p><strong>栗子：</strong></p><pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx">import React, &#123; PropsWithChildren &#125; from &#39;react&#39;
+
+&#x2F;&#x2F; 也可以写全ArticleHeaderProps，但个人感觉太长，而且需要导出组件参数类型的情况不是很多
+&#x2F;&#x2F; 解决命名重复引入时为Props设置别名即可
+export interface Props &#123;
+  title: string
+&#125; 
+
+&#x2F;&#x2F; 当组件使用了高阶组件，注入了其他属性时，需要在这里将导出的类型放在这里和Props组成交叉类型
+&#x2F;&#x2F; 这样才能在组件中正常提示
+type FinalProps &#x3D; Props
+
+&#x2F;&#x2F; PropsWithChildren为props带上children属性
+class ArticleHeader extends React.Component&lt;PropWithChildren&lt;FinalProps&gt;&gt; &#123;
+  constructor(props: PropWithChildren&lt;FinalProps&gt;) &#123;
+
+  &#125;
+&#125;
+
+&#x2F;&#x2F; 最后需要再强制断言为Props，如果不这样做，当外部使用时，将提示需要传入高阶组件中注入的属性
+&#x2F;&#x2F; 这里建议封装一个拼接所有高阶组件的函数，顺便提供一个Props的泛型
+export default ArticleHeader as any as React.Component&lt;Props&gt;</code></pre><h2 id="路由参数类型"><a href="#路由参数类型" class="headerlink" title="路由参数类型"></a>路由参数类型</h2><p>几乎所有react应用都使用了路由，要将类型系统带入路由中去，首先每个页面组件都要导出一个路由参数的接口，之后再由一个统一的类型文件汇总并导出一个路由参数映射类型。</p><pre class="line-numbers language-ts" data-language="ts"><code class="language-ts">&#x2F;* views&#x2F;article&#x2F;index.tsx *&#x2F;
+export interface RouteParams &#123;
+  articleId: number
+&#125;
+
+&#x2F;* views&#x2F;articleList&#x2F;index.tsx *&#x2F;
+export interface RouteParams &#123;
+  categoryId: number
+&#125;
+
+&#x2F;* routes&#x2F;index.ts *&#x2F;
+import &#123; RouteParams as ArticlePageRP &#125; from &#39;&#x2F;views&#x2F;articlePage&#39;
+import &#123; RouteParams as ArticleListRP &#125; from &#39;&#x2F;views&#x2F;articleListPage&#39;
+
+&#x2F;&#x2F; 最终导出的路由参数映射类型
+export interface RouteParamMaps &#123;
+  article: ArticlePageRP
+  articleList: ArticleListRP
+&#125;
+
+export type RouteNames &#x3D; keyof RouteParamMaps
+
+&#x2F;&#x2F; 封装导航器，考虑到react中导航大多都经过了二次封装，这里只提供一个简单实现的类型表示(基于react-router-dom@5)
+&#x2F;&#x2F; 相当于提供一个思路，具体请根据使用的导航器封装
+&#x2F;* utils&#x2F;createRouter.ts *&#x2F;
+type CreateRouter &#x3D; &lt;RouteParams&gt;(props: &#123; history: RouteChildrenProps[&#39;history&#39;] &#125;) &#x3D;&gt; MyRouter&lt;RouteParams&gt;
+
+interface MyRouter&lt;RouteParams&gt; &#123;
+  params: &#123;
+    search: RouteParams
+    state: RoutePrams
+  &#125;
+
+  search&lt;T extends RouteNames&gt;(path: T, params: RouteParamMaps[T], action?: &#39;push&#39; | &#39;replace&#39;)
+  state&lt;T extends RouteNames&gt;(path: T, params: RouteParamMaps[T], action?: &#39;push&#39; | &#39;replace&#39;)
+&#125;
+
+
+&#x2F;&#x2F; 使用
+&#x2F;* views&#x2F;articleList.tsx *&#x2F;
+import React from &#39;react&#39;
+import &#123; RouteChildrenProps &#125; from &#39;react-router&#39;
+import createRouter from &#39;&#x2F;utils&#x2F;createRouter&#39;
+
+export interface RouteParams &#123;
+  categoryId: number
+&#125;
+
+export interface Props &#123;&#125; 
+
+type FinalProps &#x3D; Props &amp; RouteChildrenProps
+
+class ArticleListPage extends React.Component&lt;FinalProps&gt; &#123;
+  router &#x3D; createRouter&lt;RouteParams&gt;()
+
+  constructor(props: FinalProps) &#123;
+    &#x2F;&#x2F; params会有类型提示
+    console.log(router.params.search)
+
+    &#x2F;&#x2F; 对于不同的路由，参数的提示也会不同
+    router.search(&#39;article&#39;, &#123; articleId: 1 &#125;)
+  &#125;
+&#125;
+
+export default ArticlePage</code></pre><h2 id="Ref导出类型"><a href="#Ref导出类型" class="headerlink" title="Ref导出类型"></a>Ref导出类型</h2><p>使用ref时经常会有导出一个组件控制器的情况，下面是栗子：</p><pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx">&#x2F;* views&#x2F;article&#x2F;components&#x2F;header.tsx *&#x2F;
+class ArticleHeader &#123; ... &#125;
+
+&#x2F;* views&#x2F;article&#x2F;index.tsx *&#x2F;
+class ArticlePage extends React.Component &#123;
+  headerRef &#x3D; createRef&lt;ArticleHeader&gt;()
+&#125;</code></pre><p>hook组件由于没有ref，就需要手动导出一个ref类型。</p><pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx">import React, &#123;&#125; from &#39;react&#39;
+
+export interface ArticleHeaderRef &#123;
+  show(): void
+  hide(): void
+&#125;
+
+export interface Props &#123;
+  &#x2F;&#x2F; 官方有forwardRef用于给函数式组件添加ref，但不知为什么使用时会遭遇类型错误，于是这里手动定义了个getRef属性
+  getRef?: MutableRefObject&lt;ArticleHeaderRef | undefined | null&gt;
+&#125;
+
+&#x2F;&#x2F; 这里省略掉FinalProps了，实际应该有的
+
+function ArticleHeader(props: Props) &#123;
+  if (props.getRef) props.getRef.current &#x3D; &#123; show, hide &#125;
+
+  show() &#123;&#125;
+  hide() &#123;&#125;
+&#125;
+
+&#x2F;&#x2F; 使用
+const articleHeaderRef &#x3D; useRef&lt;ArticleHeaderRef | undefined | null&gt;() &#x2F;&#x2F; 函数组件
+&#x2F;&#x2F; articleHeaderRef &#x3D; createRef&lt;ArticleHeaderRef | undefined | null&gt;() &#x2F;&#x2F; 类组件
+
+&#x2F;*
+  这里有个偷懒的方式，为getRef设置：MutableRefObject&lt;any&gt;，
+  使用时：useRef&lt;ArticleHeaderRef&gt;，这样虽然类型检查有些小瑕疵，但不用去写空值的交叉类型了
+*&#x2F;</code></pre><h2 id="高阶组件注入类型"><a href="#高阶组件注入类型" class="headerlink" title="高阶组件注入类型"></a>高阶组件注入类型</h2><p>高阶组件是跨组件复用逻辑的利器，可以看做是一个装饰器。</p><p>首先重温两点知识：</p><ul><li>高阶组件接收一个组件，返回一个新组件</li><li>装饰器模式要求不能改变被装饰者的接口</li></ul><p>明确了这两点，就可以知道：要为高阶组件定义的传入参数类型是一个返回组件实例的类，而不是组件实例；其次，返回的类型就是传入的类型，注入到props的属性要通过为FinalProps追加交叉类型来实现。</p><p>话说当初为了实现装饰器自动添加注入的props类型，试了一天最后也没实现，想不通为什么高阶组件已经明确定义了返回的类型用了装饰器为什么还是没返回新的类型，后来才想明白装饰器这个设计模式本身就是要求不能改变接口。</p><pre class="line-numbers language-tsx" data-language="tsx"><code class="language-tsx">&#x2F;&#x2F; 这里有个小坑，就是我上面第一点提到的，ts可以将类直接当类型使用，这种情况代表的是类实例，而不是类本身，所以不能用React.Component
+type ReactComponentClass &#x3D; &#123; new(...args: any[]): React.Component &#125;
+
+function userStoreHOC&lt;T extends ReactComponentClass&gt;(Component: T): T &#123;
+  return function WrappedComponent(props: any) &#123;
+    return (
+      &lt;UserStoreContext.Consumer&gt;&#123;context &#x3D;&gt;
+        &lt;Component &#123;...props&#125; userStore&#x3D;&#123;context&#125; &#x2F;&gt;
+      &#125;&lt;&#x2F;UserStoreContext.Consumer&gt;
+    )
+  &#125;
+&#125;
+
+interface UserStoreProps &#123;
+  $userStore: &#123;
+    userName: string
+    login(): void
+    logout(): void
+  &#125;
+&#125;
+
+&#x2F;&#x2F; 使用
+export interface Props &#123;&#125;
+
+&#x2F;&#x2F; 向FinalProps追加交叉类型
+type FinalProps &#x3D; Props &amp; UserStoreProps
+
+&#x2F;&#x2F; 省略其余代码...</code></pre><p>暂时就是这些，未来还可能会补充。</p></div><div class="articleLicenses"><p>版权声明：本文为原创文章，版权归 小春日和 所有</p><p style="word-break:break-all"><span>文章链接：</span><a id="articleLink" href="javascript:void()" aria-describedby="tooltip-copyArticleLink">https://koharubiyori.gitee.io/2020/12/04/React/在React中愉快地使用TypeScript/</a></p><p><span>所有原创文章采用&nbsp;</span><a target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh">署名-非商业性使用 4.0 国际 (CC BY-NC 4.0)</a></p><p>您可以自由转载和修改，但必须保证在显著位置注明文章来源，且不能用于商业目的。</p><div id="tooltip-copyArticleLink" class="mdc-tooltip" role="tooltip" aria-hidden="true"><div class="mdc-tooltip__surface"><lorem>点击复制链接</lorem></div></div></div></div></div><div class="prevNextArticle flex-row flex-between"><div></div><a class="nextArticle materialRipple materialRipple--dark mdc-elevation--z2 flex" href="/2020/12/04/React/React class组件中复用状态及生命周期/" title="React class组件中复用状态及生命周期"><div class="label">下一篇</div><div class="title com-textLimit">React class组件中复用状态及生命周期</div></a></div><div id="post-comments"></div></div></main><div class="page-sidebar"><div class="sidebar-placeholder"></div><div class="sidebar-body mdc-elevation--z4"><div class="articleContents"><div class="articleContents-title">目录</div></div><div class="katakoto"><div class="katakoto-title">只言片语</div><div class="katakoto-items"><div class="katakoto-item"><div class="katakoto-item--content">第三次重建博客，希望这次不会没写多少东西就又关了...</div><div class="katakoto-item--date">—— 2020年08月24日 14:59</div></div><div class="katakoto-item"><div class="katakoto-item--content">打工人这个词，从无产者口中说出来是自嘲；从资本家口中说出来是压迫。</div><div class="katakoto-item--date">—— 2020年11月21日 09:33</div></div><div class="katakoto-item"><div class="katakoto-item--content">站在屎山上只能选择继续拉屎，这样最坏的结果也只是踩到自己拉的屎。如果尝试去清理这座屎山，将会掉到这座屎山的中心去。</div><div class="katakoto-item--date">—— 2020年11月21日 09:35</div></div></div></div><div class="tags"><div class="tags-title">内容标签</div><a class="tags-item" href="/tags/JavaScript/" title="查看“JavaScript”标签下的文章"><i class="material-icons">local_offer</i><span>JavaScript</span></a><a class="tags-item" href="/tags/前端/" title="查看“前端”标签下的文章"><i class="material-icons">local_offer</i><span>前端</span></a><a class="tags-item" href="/tags/React/" title="查看“React”标签下的文章"><i class="material-icons">local_offer</i><span>React</span></a><a class="tags-item" href="/tags/Typescript/" title="查看“Typescript”标签下的文章"><i class="material-icons">local_offer</i><span>Typescript</span></a><a class="tags-item" href="/tags/Vue-js/" title="查看“Vue.js”标签下的文章"><i class="material-icons">local_offer</i><span>Vue.js</span></a><a class="tags-item" href="/tags/前端技术/" title="查看“前端技术”标签下的文章"><i class="material-icons">local_offer</i><span>前端技术</span></a><a class="tags-item" href="/tags/TypeScript/" title="查看“TypeScript”标签下的文章"><i class="material-icons">local_offer</i><span>TypeScript</span></a><a class="tags-item" href="/tags/小程序/" title="查看“小程序”标签下的文章"><i class="material-icons">local_offer</i><span>小程序</span></a><a class="tags-item" href="/tags/Taro/" title="查看“Taro”标签下的文章"><i class="material-icons">local_offer</i><span>Taro</span></a><a class="tags-item" href="/tags/日常/" title="查看“日常”标签下的文章"><i class="material-icons">local_offer</i><span>日常</span></a></div></div></div><div class="page-search"><div class="search-body"><div class="search-input-container flex-row flex-cross-center"><i class="material-icons">search</i><input class="search-input flex" placeholder="搜索文章..."></div><div class="search-result" data-dirty="false" data-emptyresult="false"></div></div></div></div><div class="backTopButton mdc-elevation--z4 flex-row flex-center is-hide materialRipple"><i class="material-icons">north</i></div></body></html>
