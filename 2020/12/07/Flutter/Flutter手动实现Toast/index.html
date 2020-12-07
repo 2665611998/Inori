@@ -1,0 +1,216 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0"><meta name="baidu-site-verification" content="code-huaq5qAbeF"><title>Flutter手动实现Toast - 小春日和の秘密基地</title><meta name="description" content="网上的教程基本都是用fluttertoast，官方文档怎么自定义toast也没说清楚。自己动手，丰衣足食！"><link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.8.55/css/materialdesignicons.min.css"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><link rel="stylesheet" href="/libs/normalize.css?timestamp=1607357720560"><link rel="stylesheet" href="/libs/flex.css?timestamp=1607357720560"><link rel="stylesheet" href="/libs/material-components-web.min.css?timestamp=1607357720560"><link rel="stylesheet" href="/libs/mdc.tooltip.min.css?timestamp=1607357720560"><link rel="stylesheet" href="/libs/prism.css?timestamp=1607357720560"><link rel="stylesheet" href="/libs/viewer.min.css?timestamp=1607357720560"><link rel="stylesheet" href="/styles/commons/index.css?timestamp=1607357720560"><link rel="stylesheet" href="/styles/templates/index.css?timestamp=1607357720560"><link rel="stylesheet" href="/styles/partial/index.css?timestamp=1607357720560"><link rel="stylesheet" href="/styles/layout.css?timestamp=1607357720560"><script src="/libs/jquery.min.js?timestamp=1607357720560"></script><script src="/libs/material-components-web.min.js?timestamp=1607357720560"></script><script src="/libs/mdc.tooltip.min.js?timestamp=1607357720560"></script><script src="/libs/prism.min.js?timestamp=1607357720560"></script><script src="/libs/viewer.min.js?timestamp=1607357720560"></script><script src="/scripts/uiRender.js?timestamp=1607357720560"></script><meta name="generator" content="Hexo 5.0.2"></head><body><img class="page-bgImg" src="/sourceImages/bg.png"><header class="mdc-top-app-bar mdc-top-app-bar--fixed mdc-elevation--z4"><div class="mdc-top-app-bar__row"><section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start"><button id="drawerButton" class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button> <a class="mdc-top-app-bar__title" href="/" style="color:#fff">小春日和の秘密基地</a></section><section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end"><button id="searchButton" class="material-icons mdc-top-app-bar__action-item mdc-icon-button">search</button></section></div></header><div class="mainContainer flex-row"><div class="page-drawer"><div class="drawer-placeholder"></div><aside class="mdc-drawer drawer-body mdc-elevation--z4"><div class="drawer-header flex-column flex-evenly"><div class="drawer-header--content flex-column flex-cross-center"><img class="drawer-avatar" src="/sourceImages/avatar.png"><div class="drawer-userName">小春日和</div><div class="drawer-totals flex-row flex-cross-center"><div class="flex flex-column flex-center"><div class="drawer-totals--label">文章</div><div class="drawer-totals--value">共9篇</div></div><div class="flex flex-column flex-center"><div class="drawer-totals--label">标签</div><div class="drawer-totals--value">共11个</div></div><div class="flex flex-column flex-center" id="busuanzi_container_site_pv"><div class="drawer-totals--label" style="text-align:center">总访问</div><div class="drawer-totals--value" style="text-align:center"><span id="busuanzi_value_site_pv"></span><span>次</span></div></div></div></div></div><div class="drawer-content"><div class="drawer-list"><a class="drawer-list-item flex-row flex-cross-center materialRipple materialRipple--dark com-pointer" href="/"><i class="list-item--icon material-icons">home</i><span class="list-item--title">首页</span></a><a class="drawer-list-item flex-row flex-cross-center materialRipple materialRipple--dark com-pointer" href="/2020/08/24/日常/再次启程"><i class="list-item--icon material-icons">info</i><span class="list-item--title">关于博客 </span></a><a class="drawer-list-item flex-row flex-cross-center materialRipple materialRipple--dark com-pointer" target="_blank" rel="noopener" href="https://github.com/koharubiyori"><i class="mdi-set mdi-github" style="font-size:24px;color:var(--mdc-theme-primary);line-height:1.1"></i><span class="list-item--title">Github</span></a><a class="drawer-list-item flex-row flex-cross-center materialRipple materialRipple--dark com-pointer" target="_blank" rel="noopener" href="https://zh.moegirl.org.cn/User:%E6%9D%B1%E6%9D%B1%E5%90%9B"><strong style="font-size:18px;color:var(--mdc-theme-primary);margin-left:3px">萌</strong><span class="list-item--title">萌娘百科</span></a></div></div></aside></div><main class="mainContent flex"><div class="page-post"><link rel="stylesheet" href="/styles/post.css?timestamp=1607357720536"><div class="post-header"><h2 class="post-header--title">Flutter手动实现Toast</h2><div class="post-header--row com-onlyDesktop"><div class="post-header--infoBox" style="background-color:#007fff"><i class="material-icons">watch_later</i><span>2020年12月07日</span></div><div class="post-header--infoBox" style="background-color:#04b431"><i class="material-icons">menu_book</i><span>总字数：1.2k</span></div><div class="post-header--infoBox" style="background-color:#b40486"><i class="material-icons">access_alarm</i><span>预计阅读时间：18分钟</span></div></div><div class="post-header--row post-header--tags" style="justify-content:flex-start;margin-top:10px"><a class="post-header--tag" href="/tags/Flutter/" title="查看“Flutter”标签下的文章"><i class="material-icons">local_offer</i><span>Flutter</span></a></div></div><div class="post-body mdc-elevation--z2"><img class="post-body--headImg" src="https://bn1302files.storage.live.com/y4mUvexiMcauCQ1ypMxIv07DhsKcw3yRdFaq2nqWgxrTOJFXOIzMM7c5OhdgYarCqBrlgYA9JCXdEdtGrxRnXyG-0u4FLB4dfSt3BPj_TFgiRAfOp5n5jqz-as0rF8Gj2LJz2zqEVIzE9J1D5O5Hfn8tMU8-HdzpoOGT8qgYz2T2CV_96toV_aiEX_McQsTVg8j?width=1024&amp;height=576&amp;cropmode=none" style="object-position:top"><div class="post-body--content"><div class="contentContainer"><p>图片来源：<a target="_blank" rel="noopener" href="https://www.pixiv.net/artworks/46407864">pixiv:おかえり 作者：刃天</a></p><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>网上的教程基本都是用<a target="_blank" rel="noopener" href="https://pub.flutter-io.cn/packages/fluttertoast">fluttertoast</a>，官方文档怎么自定义toast也没说清楚(也可能是我英文太烂没看懂)。没办法，自己动手，丰衣足食！</p><p>最终效果：</p><img src="sample.gif" width="300"><h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>为了逻辑清晰，将toast组件分为三层：UI层、动画层、逻辑层。接下来依次实现。</p><h3 id="UI层"><a href="#UI层" class="headerlink" title="UI层"></a>UI层</h3><p>顾名思义，UI层只做绘制UI的工作，不要写别的东西。</p><pre class="line-numbers language-dart" data-language="dart"><code class="language-dart">import &#39;dart:async&#39;;
+import &#39;package:flutter&#x2F;material.dart&#39;;
+import &#39;components&#x2F;animation.dart&#39;; &#x2F;&#x2F; 这是之后要实现的动画层
+
+enum ToastPosition &#123;
+  top, center, bottom
+&#125;
+
+class Toast extends StatefulWidget &#123;
+  final String text;
+  final ToastPosition position;
+  final Function(ToastAnimationController) emitController;  &#x2F;&#x2F; 需要抛出一个控制器，这个控制器实际是由动画层提供的
+
+  const Toast(&#123;
+    Key key,
+    this.text,
+    this.position,
+    this.emitController
+  &#125;) : super(key: key);
+
+  @override
+  _ToastState createState() &#x3D;&gt; _ToastState();
+&#125;
+
+class _ToastState extends State&lt;Toast&gt; &#123;
+  @override
+  void initState() &#123; 
+    super.initState();
+  &#125;
+
+  &#x2F;&#x2F; 定义toast位置的具体定位
+  get toastPositionContainer &#x3D;&gt; &#123;
+    ToastPosition.top: (Widget child) &#x3D;&gt; Positioned(top: 70, left: 0, right: 0, child: child),
+    ToastPosition.center: (Widget child) &#x3D;&gt; Positioned(top: 0, bottom: 0, left: 0, right: 0, child: child),
+    ToastPosition.bottom: (Widget child) &#x3D;&gt; Positioned(bottom: 70, left: 0, right: 0, child: child)
+  &#125;[widget.position];
+
+  @override
+  Widget build(BuildContext context) &#123;
+    final toastBody &#x3D; Container(
+      margin: EdgeInsets.symmetric(horizontal: 30),
+      padding: const EdgeInsets.only(
+        top: 10, bottom: 10,
+        left: 20, right: 20
+      ),
+      decoration: BoxDecoration(
+        color: const Color.fromRGBO(0, 0, 0, 0.7),
+        borderRadius: const BorderRadius.all(Radius.circular(10))
+      ),
+      child: Text(widget.text,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 14,
+          fontWeight: FontWeight.normal,
+          decoration: TextDecoration.none,
+        ),
+      ),
+    );
+
+    &#x2F;&#x2F; 包裹IgnorePointer，防止toast挡住用户点击页面
+    return IgnorePointer(
+      ignoring: true,
+      child: Stack(
+        children: [
+          toastPositionContainer(
+            Center(
+              child: ToastAnimationWrapper(
+                toast: toastBody,
+                emitController: widget.emitController,  &#x2F;&#x2F; emitController继续传给动画层
+              )
+            )
+          )
+        ],
+      )
+    );
+  &#125;
+&#125;</code></pre><h3 id="动画层"><a href="#动画层" class="headerlink" title="动画层"></a>动画层</h3><p>动画层中有两个动画：show、hide，最后抛出一个动画控制器。</p><pre class="line-numbers language-dart" data-language="dart"><code class="language-dart">import &#39;package:flutter&#x2F;material.dart&#39;;
+
+class ToastAnimationWrapper extends StatefulWidget &#123;
+  final Widget toast;  &#x2F;&#x2F; toast UI层组件
+  final Function(ToastAnimationController) emitController;
+
+  ToastAnimationWrapper(&#123;
+    Key key,
+    this.toast,
+    this.emitController
+  &#125;) : super(key: key);
+
+  @override
+  _ToastAnimationWrapperState createState() &#x3D;&gt; _ToastAnimationWrapperState();
+&#125;
+
+class _ToastAnimationWrapperState extends State&lt;ToastAnimationWrapper&gt; with SingleTickerProviderStateMixin &#123;
+  Animation&lt;double&gt; translateY;
+  Animation&lt;double&gt; scale;
+  Animation&lt;double&gt; opacity;
+  AnimationController animationController;
+  &#x2F;&#x2F; 由于对动画值的赋值是在动画方法中进行的，所有动画值的初始值为null，无法渲染
+  &#x2F;&#x2F; 所以要用这个变量进行判断，如果为false时不渲染内容
+  bool animationReady &#x3D; false;
+
+  @override
+  void initState() &#123;
+    super.initState();
+    animationController &#x3D; AnimationController(vsync: this);
+    widget.emitController(ToastAnimationController(show, hide));
+  &#125;
+
+  &#x2F;&#x2F; show和hide方法都返回一个Future，用于告知动画已经结束
+  Future&lt;void&gt; show() &#123;
+    animationController.duration &#x3D; const Duration(milliseconds: 300);
+
+    setState(() &#123;
+      translateY &#x3D; Tween(begin: 5.0, end: 0.0)
+        .animate(CurvedAnimation(
+          parent: animationController,
+          curve: Interval(0.0, 0.5, curve: Curves.ease)
+        ));
+
+      scale &#x3D; TweenSequence([
+        TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.1), weight: 1),
+        TweenSequenceItem(tween: Tween(begin: 1.1, end: 1.0), weight: 1),
+      ]).animate(CurvedAnimation(
+        parent: animationController,
+        curve: Curves.ease
+      ));
+
+      opacity &#x3D; Tween(begin: 0.0, end: 1.0)
+        .animate(CurvedAnimation(
+          parent: animationController,
+          curve: Interval(0.0, 0.5, curve: Curves.ease)
+        ));
+
+      &#x2F;&#x2F; 动画已经准备好，设置animationReady为true
+      animationReady &#x3D; true
+    &#125;)
+
+    return animationController.forward().orCancel;
+  &#125;
+
+  Future&lt;void&gt; hide() &#123;
+    animationController.reset();
+    animationController.duration &#x3D; const Duration(milliseconds: 150);
+
+    setState(() &#123;
+      translateY &#x3D; Tween(begin: 0.0, end: 5.0)
+        .chain(CurveTween(curve: Curves.ease))
+        .animate(animationController);
+
+      scale &#x3D; Tween(begin: 1.0, end: 0.8)
+        .chain(CurveTween(curve: Curves.ease))
+        .animate(animationController);
+
+      opacity &#x3D; Tween(begin: 1.0, end: 0.0)
+        .chain(CurveTween(curve: Curves.ease))
+        .animate(animationController);
+    &#125;)
+
+    return animationController.forward().orCancel;
+  &#125;
+
+  @override
+  Widget build(BuildContext context) &#123;
+    &#x2F;&#x2F; 判断动画未准备好时，返回空内容
+    if (!animationReady) return Container(width: 0, height: 0);
+
+    return AnimatedBuilder(
+      animation: translateY,
+      child: FadeTransition(
+        opacity: opacity ?? 0,
+        child: ScaleTransition(
+          scale: scale,
+          child: widget.toast,
+        )
+      ),
+      builder: (context, child) &#x3D;&gt; (
+        Transform(
+          transform: Matrix4.translationValues(0, translateY.value, 0),
+          child: child,
+        )
+      )
+    );
+  &#125;
+&#125;
+
+&#x2F;&#x2F; 动画控制器
+class ToastAnimationController &#123;
+  final Future Function() show;
+  final Future&lt;void&gt; Function() hide;
+
+  ToastAnimationController(this.show, this.hide);
+&#125;</code></pre><h3 id="逻辑层"><a href="#逻辑层" class="headerlink" title="逻辑层"></a>逻辑层</h3><p>这里实现的也就是给外部调用的函数。</p><p>首先要简单了解下<a target="_blank" rel="noopener" href="https://api.flutter.dev/flutter/widgets/Overlay-class.html">Overlay</a>的概念，Overlay是Flutter中一个独立的页面栈，显示在所有页面的最上层，利用这个就可以比较方便地实现toast、tooltip、dialog等组件的展示。</p><p>需要将包裹了动画层的UI层放入Overlay中，在toast的声明周期结束后(显示动画 -&gt; 持续时间过后 -&gt; 隐藏动画)移出Overlay。</p><pre class="line-numbers language-dart" data-language="dart"><code class="language-dart">void toast (String text, &#123;
+  ToastPosition position &#x3D; ToastPosition.bottom,
+  int duration &#x3D; 3000
+&#125;) async &#123;
+  &#x2F;&#x2F; new一个Completer用来异步接收动画控制器
+  var controllerCompleter &#x3D; Completer&lt;ToastAnimationController&gt;();
+
+  &#x2F;&#x2F; 注意这里的放入Overlay的写法
+  final overlayEntry &#x3D; OverlayEntry(
+    builder: (context) &#x3D;&gt; Toast(
+      text: text, 
+      position: position,
+      emitController: controllerCompleter.complete,
+    )
+  );
+
+  &#x2F;&#x2F; OneContext是一个flutter库，可以比较方便地保存路由的navigatorKey，然后全局使用。
+  &#x2F;&#x2F; 使用GlobalKey也是可以的，只要能拿到上下文对象就行，具体用法请自行百度，这里不再赘述
+  Overlay.of(OneContext().context).insert(overlayEntry);
+  final controller &#x3D; await controllerCompleter.future;  &#x2F;&#x2F; 拿到控制器
+  controller.show();
+  await Future.delayed(Duration(milliseconds: duration));
+  await controller.hide();
+  overlayEntry.remove();  &#x2F;&#x2F; 从Overlay中移除
+&#125;</code></pre><p>以上就手动实现了一个带有动画，封装好的完整toast功能。</p></div><div class="articleLicenses"><p>版权声明：本文为原创文章，版权归 小春日和 所有</p><p style="word-break:break-all"><span>文章链接：</span><a id="articleLink" href="javascript:void()" aria-describedby="tooltip-copyArticleLink">https://koharubiyori.gitee.io/2020/12/07/Flutter/Flutter手动实现Toast/</a></p><p><span>所有原创文章采用&nbsp;</span><a target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh">署名-非商业性使用 4.0 国际 (CC BY-NC 4.0)</a></p><p>您可以自由转载和修改，但必须保证在显著位置注明文章来源，且不能用于商业目的。</p><div id="tooltip-copyArticleLink" class="mdc-tooltip" role="tooltip" aria-hidden="true"><div class="mdc-tooltip__surface"><lorem>点击复制链接</lorem></div></div></div></div></div><div class="prevNextArticle flex-row flex-between"><div></div><a class="nextArticle materialRipple materialRipple--dark mdc-elevation--z2 flex" href="/2020/12/07/Flutter/Flutter中实现带可动头部的列表布局/" title="Flutter中实现带可动头部的列表布局"><div class="label">下一篇</div><div class="title com-textLimit">Flutter中实现带可动头部的列表布局</div></a></div><div id="post-comments"></div></div></main><div class="page-sidebar"><div class="sidebar-placeholder"></div><div class="sidebar-body mdc-elevation--z4"><div class="articleContents"><div class="articleContents-title">目录</div></div><div class="katakoto"><div class="katakoto-title">只言片语</div><div class="katakoto-items"><div class="katakoto-item"><div class="katakoto-item--content">第三次重建博客，希望这次不会没写多少东西就又关了...</div><div class="katakoto-item--date">—— 2020年11月21日 09:35</div></div><div class="katakoto-item"><div class="katakoto-item--content">再过半个月还调整不好心情就要去看心理医生了。</div><div class="katakoto-item--date">—— 2020年12月05日 23:34</div></div><div class="katakoto-item"><div class="katakoto-item--content">其实我写博客是为了发图的...なんちゃって</div><div class="katakoto-item--date">—— 2020年12月05日 23:35</div></div><div class="katakoto-item"><div class="katakoto-item--content">希望以后每天都能开心...</div><div class="katakoto-item--date">—— 2020年12月07日 10:14</div></div></div></div><div class="tags"><div class="tags-title">内容标签</div><a class="tags-item" href="/tags/JavaScript/" title="查看“JavaScript”标签下的文章"><i class="material-icons">local_offer</i><span>JavaScript</span></a><a class="tags-item" href="/tags/前端/" title="查看“前端”标签下的文章"><i class="material-icons">local_offer</i><span>前端</span></a><a class="tags-item" href="/tags/React/" title="查看“React”标签下的文章"><i class="material-icons">local_offer</i><span>React</span></a><a class="tags-item" href="/tags/Typescript/" title="查看“Typescript”标签下的文章"><i class="material-icons">local_offer</i><span>Typescript</span></a><a class="tags-item" href="/tags/Vue-js/" title="查看“Vue.js”标签下的文章"><i class="material-icons">local_offer</i><span>Vue.js</span></a><a class="tags-item" href="/tags/前端技术/" title="查看“前端技术”标签下的文章"><i class="material-icons">local_offer</i><span>前端技术</span></a><a class="tags-item" href="/tags/TypeScript/" title="查看“TypeScript”标签下的文章"><i class="material-icons">local_offer</i><span>TypeScript</span></a><a class="tags-item" href="/tags/小程序/" title="查看“小程序”标签下的文章"><i class="material-icons">local_offer</i><span>小程序</span></a><a class="tags-item" href="/tags/Taro/" title="查看“Taro”标签下的文章"><i class="material-icons">local_offer</i><span>Taro</span></a><a class="tags-item" href="/tags/日常/" title="查看“日常”标签下的文章"><i class="material-icons">local_offer</i><span>日常</span></a><a class="tags-item" href="/tags/Flutter/" title="查看“Flutter”标签下的文章"><i class="material-icons">local_offer</i><span>Flutter</span></a></div></div></div><div class="page-search"><div class="search-body"><div class="search-input-container flex-row flex-cross-center"><i class="material-icons">search</i><input class="search-input flex" placeholder="搜索文章..."></div><div class="search-result" data-dirty="false" data-emptyresult="false"></div></div></div></div><div class="backTopButton mdc-elevation--z4 flex-row flex-center is-hide materialRipple"><i class="material-icons">north</i></div></body></html>
