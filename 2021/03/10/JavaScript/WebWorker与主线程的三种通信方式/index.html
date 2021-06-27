@@ -1,0 +1,88 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0"><meta name="baidu-site-verification" content="code-huaq5qAbeF"><title>WebWorker与主线程的三种通信方式 - 小春日和の秘密基地</title><meta name="description" content="WebWorker有改变前端的潜力。"><link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.8.55/css/materialdesignicons.min.css"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script><link rel="stylesheet" href="/libs/normalize.css?timestamp=1624798385674"><link rel="stylesheet" href="/libs/flex.css?timestamp=1624798385674"><link rel="stylesheet" href="/libs/material-components-web.min.css?timestamp=1624798385674"><link rel="stylesheet" href="/libs/mdc.tooltip.min.css?timestamp=1624798385674"><link rel="stylesheet" href="/libs/prism.css?timestamp=1624798385674"><link rel="stylesheet" href="/libs/viewer.min.css?timestamp=1624798385674"><link rel="stylesheet" href="/styles/commons/index.css?timestamp=1624798385674"><link rel="stylesheet" href="/styles/templates/index.css?timestamp=1624798385674"><link rel="stylesheet" href="/styles/partial/index.css?timestamp=1624798385674"><link rel="stylesheet" href="/styles/layout.css?timestamp=1624798385674"><script src="/libs/jquery.min.js?timestamp=1624798385674"></script><script src="/libs/material-components-web.min.js?timestamp=1624798385674"></script><script src="/libs/mdc.tooltip.min.js?timestamp=1624798385674"></script><script src="/libs/prism.min.js?timestamp=1624798385674"></script><script src="/libs/viewer.min.js?timestamp=1624798385674"></script><script src="/scripts/uiRender.js?timestamp=1624798385674"></script><meta name="generator" content="Hexo 5.0.2"></head><body><img class="page-bgImg" src="/sourceImages/bg.png"><header class="mdc-top-app-bar mdc-top-app-bar--fixed mdc-elevation--z4"><div class="mdc-top-app-bar__row"><section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start"><button id="drawerButton" class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button> <a class="mdc-top-app-bar__title" href="/" style="color:#fff">小春日和の秘密基地</a></section><section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end"><button id="searchButton" class="material-icons mdc-top-app-bar__action-item mdc-icon-button">search</button></section></div></header><div class="mainContainer flex-row"><div class="page-drawer"><div class="drawer-placeholder"></div><aside class="mdc-drawer drawer-body mdc-elevation--z4"><div class="drawer-header flex-column flex-evenly"><div class="drawer-header--content flex-column flex-cross-center"><img class="drawer-avatar" src="/sourceImages/avatar.png"><div class="drawer-userName">小春日和</div><div class="drawer-totals flex-row flex-cross-center"><div class="flex flex-column flex-center"><div class="drawer-totals--label">文章</div><div class="drawer-totals--value">共11篇</div></div><div class="flex flex-column flex-center"><div class="drawer-totals--label">标签</div><div class="drawer-totals--value">共10个</div></div><div class="flex flex-column flex-center" id="busuanzi_container_site_pv"><div class="drawer-totals--label" style="text-align:center">总访问</div><div class="drawer-totals--value" style="text-align:center"><span id="busuanzi_value_site_pv"></span><span>次</span></div></div></div></div></div><div class="drawer-content"><div class="drawer-list"><a class="drawer-list-item flex-row flex-cross-center materialRipple materialRipple--dark com-pointer" href="/"><i class="list-item--icon material-icons">home</i><span class="list-item--title">首页</span></a><a class="drawer-list-item flex-row flex-cross-center materialRipple materialRipple--dark com-pointer" href="/2020/08/24/日常/再次启程"><i class="list-item--icon material-icons">info</i><span class="list-item--title">关于博客 </span></a><a class="drawer-list-item flex-row flex-cross-center materialRipple materialRipple--dark com-pointer" target="_blank" rel="noopener" href="https://github.com/koharubiyori"><i class="mdi-set mdi-github" style="font-size:24px;color:var(--mdc-theme-primary);line-height:1.1"></i><span class="list-item--title">Github</span></a><a class="drawer-list-item flex-row flex-cross-center materialRipple materialRipple--dark com-pointer" target="_blank" rel="noopener" href="https://zh.moegirl.org.cn/User:%E6%9D%B1%E6%9D%B1%E5%90%9B"><strong style="font-size:18px;color:var(--mdc-theme-primary);margin-left:3px">萌</strong><span class="list-item--title">萌娘百科</span></a></div></div></aside></div><main class="mainContent flex"><div class="page-post"><link rel="stylesheet" href="/styles/post.css?timestamp=1624798385632"><div class="post-header"><h2 class="post-header--title">WebWorker与主线程的三种通信方式</h2><div class="post-header--row com-onlyDesktop"><div class="post-header--infoBox" style="background-color:#007fff"><i class="material-icons">watch_later</i><span>2021年03月10日</span></div><div class="post-header--infoBox" style="background-color:#04b431"><i class="material-icons">menu_book</i><span>总字数：924</span></div><div class="post-header--infoBox" style="background-color:#b40486"><i class="material-icons">access_alarm</i><span>预计阅读时间：13分钟</span></div></div><div class="post-header--row post-header--tags" style="justify-content:flex-start;margin-top:10px"><a class="post-header--tag" href="/tags/JavaScript/" title="查看“JavaScript”标签下的文章"><i class="material-icons">local_offer</i><span>JavaScript</span></a><a class="post-header--tag" href="/tags/前端/" title="查看“前端”标签下的文章"><i class="material-icons">local_offer</i><span>前端</span></a></div></div><div class="post-body mdc-elevation--z2"><img class="post-body--headImg" src="https://bn1302files.storage.live.com/y4mZYMsZpS5-VbxrkCiQY8drcrsuxZ3Jt_uYrSc537nNl7DOyKhw-l3ywhtZK1OdmLVzkp9DbtfXT0_9UhsH2IJpQY_JWeJQ3kheUEpAE__qQkwpcktv-AuvrW7ZbYlu0I2eKZyJJemHClK5bra14vbBCVAVCvbTlVuMmOKTE695poEFoK71ddRtHPqqL39S-fD?width=1024&amp;height=484&amp;cropmode=none" style="object-position:undefined"><div class="post-body--content"><div class="contentContainer"><p>图片来源：忘了在哪弄的了，有知道出处的大佬告诉我下_(:з」∠)_</p><h2 id="Worker-postMessage"><a href="#Worker-postMessage" class="headerlink" title="Worker.postMessage"></a>Worker.postMessage</h2><p>这种方式可以说是最为“正统”的WebWorker与主线程的通信方式，可以进行一对一，一对多的通信。</p><h3 id="WebWorker"><a href="#WebWorker" class="headerlink" title="WebWorker"></a>WebWorker</h3><pre class="line-numbers language-js" data-language="js"><code class="language-js">&#x2F;&#x2F; main.js
+const worker &#x3D; new Worker(&#39;worker.js&#39;)
+
+worker.addEventListener(&#39;message&#39;, e &#x3D;&gt; &#123;
+  const &#123; type, data &#125; &#x3D; e.data
+  if (type &#x3D;&#x3D;&#x3D; &#39;print&#39;) console.log(data)   &#x2F;&#x2F; 打印出：hello world
+&#125;)
+
+worker.postMessage(&#123; type: &#39;welcome&#39; &#125;)
+
+&#x2F;&#x2F; worker.js
+self.addEventListener(&#39;message&#39;, e &#x3D;&gt; &#123;
+  const &#123; type &#125; &#x3D; e.data
+  if (type &#x3D;&#x3D;&#x3D; &#39;welcome&#39;) self.postMessage(&#123; type: &#39;print&#39;, data: &#39;hello world&#39; &#125;)
+&#125;)</code></pre><p>注意，ServiceWorker的写法和普通WebWorker不同：</p><h3 id="ServiceWorker"><a href="#ServiceWorker" class="headerlink" title="ServiceWorker"></a>ServiceWorker</h3><pre class="line-numbers language-js" data-language="js"><code class="language-js">&#x2F;&#x2F; main.js
+const worker &#x3D; await registerWorker(&#39;worker.js&#39;)
+
+async function registerWorker(workerUrl) &#123;
+  const serviceWorkerRegistration &#x3D; await navigator.serviceWorker.register(workerUrl)
+  await navigator.serviceWorker.ready
+  return serviceWorkerRegistration.active
+&#125;
+
+&#x2F;&#x2F; 注意这里用的不是worker
+navigator.serviceWorker.addEventListener(&#39;message&#39;, e &#x3D;&gt; &#123;
+  const &#123; type, data &#125; &#x3D; e.data
+  if (type &#x3D;&#x3D;&#x3D; &#39;print&#39;) console.log(data)   &#x2F;&#x2F; 打印出：hello world
+&#125;)
+
+&#x2F;&#x2F; worker.js
+self.addEventListener(&#39;message&#39;, e &#x3D;&gt; &#123;
+  const &#123; type &#125; &#x3D; e.data
+  if (type &#x3D;&#x3D;&#x3D; &#39;welcome&#39;) &#123;
+    &#x2F;&#x2F; 注意这里的写法
+    const windowClients &#x3D; await clients.matchAll()  &#x2F;&#x2F; 先拿到ServiceWorker的所有客户端窗口
+
+    &#x2F;&#x2F; 这会给所有当前ServiceWorker服务的客户端窗口发送消息(一对多)
+    windowClients.forEach(windowClient &#x3D;&gt; windowClient.postMessage(&#123;
+      type: &#39;print&#39;,
+      data: &#39;hello world&#39;
+    &#125;))
+
+    &#x2F;&#x2F; 通过判断url得到特定客户端窗口，只给一个窗口发送信息(一对一)
+    windowClients.find(windowClient &#x3D;&gt; windowClient.url &#x3D;&#x3D;&#x3D; &#39;xxx&#39;).postMessage(&#123;&#125;)
+  &#125;
+&#125;)</code></pre><p>取消事件监听的方式和DOM元素<code>removeEventListener</code>方法相同。</p><h2 id="BroadcastChannel"><a href="#BroadcastChannel" class="headerlink" title="BroadcastChannel"></a>BroadcastChannel</h2><p>这是三种方式中使用最为简单的方式，不仅用于主线程和WebWorker通信，也可以用于同源窗口之间的通信。只支持多对多，不能指定窗口(当然你可以自己为窗口分配id实现与指定窗口的通信)。</p><pre class="line-numbers language-js" data-language="js"><code class="language-js">&#x2F;&#x2F; main.js
+const bc &#x3D; new BroadcastChannel(&#39;testChannel&#39;)
+
+bc.postMessage(&#39;hello world&#39;)
+
+&#x2F;&#x2F; worker.js
+const bc &#x3D; new BroadcastChannel(&#39;testChannel&#39;)
+
+&#x2F;&#x2F; 打印出hello world
+bc.addEventListener(&#39;message&#39;, e &#x3D;&gt; console.log(e.data))
+
+bc.postMessage(&#39;hello worker&#39;)  &#x2F;&#x2F; 同一窗口或WebWorker下不会触发由自己发出的信息，也就是说这里并不会触发上面的事件</code></pre><h2 id="MessageChannel"><a href="#MessageChannel" class="headerlink" title="MessageChannel"></a>MessageChannel</h2><p>这种方式可以很方便地实现窗口与ServiceWorker一对一的通信。</p><pre class="line-numbers language-js" data-language="js"><code class="language-js">&#x2F;&#x2F; main.js
+&#x2F;&#x2F; 将port2传给serviceWorker进行通信
+const worker &#x3D; await registerWorker(&#39;worker.js&#39;)
+
+const messageChannel &#x3D; new MessageChannel()
+
+&#x2F;&#x2F; postMessage的第二个参数为定义要移交控制权的对象，目前ArrayBuffer、MessagePort、ImageBitmap这些对象实例可以移交
+&#x2F;&#x2F; 将messageChannel实例的其中一个端口移交给serviceWorker，实现一对一通信
+worker.postMessage(&#123; 
+  type: &#39;initMessageChannel&#39;, 
+  data: &#123; port: messageChannel.port2 &#125;
+&#125;, [messageChannel.port2])
+
+messageChannel.port1.addEventListener(&#39;message&#39;, e &#x3D;&gt; &#123;
+  const &#123; type, data &#125; &#x3D; e.data
+  if (type &#x3D;&#x3D;&#x3D; &#39;print&#39;) console.log(data)   &#x2F;&#x2F; 打印出：hello world
+&#125;)
+
+&#x2F;&#x2F; 接下来发送信息既可以继续使用worker.postMessage，也可以选择messageChannel.port1.postMessage
+
+&#x2F;&#x2F; worker.js
+const messageChannelPort &#x3D; null
+
+self.addEventListener(&#39;message&#39;, e &#x3D;&gt; &#123;
+  const &#123; type, data &#125; &#x3D; e.data
+  if (type &#x3D;&#x3D;&#x3D; &#39;initMessageChannel&#39;) &#123;
+    messageChannelPort &#x3D; data.port
+    messageChannelPort.postMessage(&#123; type: &#39;print&#39;, data: &#39;hello world&#39; &#125;)
+  &#125;
+&#125;)
+
+&#x2F;&#x2F; 还可以声明一个数组保存所有发来的messageChannelPort，实现一对多的通信等等。</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这三种方式各有侧重，虽然都是有办法实现一对一，一对多的功能的，但选择合适的通信方式仍然很重要。</p><h2 id="参见"><a href="#参见" class="headerlink" title="参见"></a>参见</h2><ul><li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Worker/postMessage">MDN Worker.postMessage</a></li><li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/BroadcastChannel">MDN BroadcastChannel</a></li><li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/MessageChannel/MessageChannel">MDN MessageChannel</a></li><li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API/Structured_clone_algorithm">MDN 结构化克隆算法</a></li></ul></div><div class="articleLicenses"><p>版权声明：本文为原创文章，版权归 小春日和 所有</p><p style="word-break:break-all"><span>文章链接：</span><a id="articleLink" href="javascript:void()" aria-describedby="tooltip-copyArticleLink">https://koharubiyori.gitee.io/2021/03/10/JavaScript/WebWorker与主线程的三种通信方式/</a></p><p><span>所有原创文章采用&nbsp;</span><a target="_blank" href="https://creativecommons.org/licenses/by-nc/4.0/deed.zh">署名-非商业性使用 4.0 国际 (CC BY-NC 4.0)</a></p><p>您可以自由转载和修改，但必须保证在显著位置注明文章来源，且不能用于商业目的。</p><div id="tooltip-copyArticleLink" class="mdc-tooltip" role="tooltip" aria-hidden="true"><div class="mdc-tooltip__surface"><lorem>点击复制链接</lorem></div></div></div></div></div><div class="prevNextArticle flex-row flex-between"><a class="nextArticle materialRipple materialRipple--dark mdc-elevation--z2 flex" href="/2020/12/08/JavaScript/JavaScript与设计模式/" title="JavaScript与设计模式"><div class="label">上一篇</div><div class="title com-textLimit">JavaScript与设计模式</div></a><a class="prevArticle materialRipple materialRipple--dark mdc-elevation--z2 flex" href="/2021/06/11/JavaScript/记一次大量调整组件参数的经历/" title="记一次大量调整组件参数的经历"><div class="label">下一篇</div><div class="title com-textLimit">记一次大量调整组件参数的经历</div></a></div><div id="post-comments"></div></div></main><div class="page-sidebar"><div class="sidebar-placeholder"></div><div class="sidebar-body mdc-elevation--z4"><div class="articleContents"><div class="articleContents-title">目录</div></div><div class="katakoto"><div class="katakoto-title">只言片语</div><div class="katakoto-items"><div class="katakoto-item"><div class="katakoto-item--content">第三次重建博客，希望这次不会没写多少东西就又关了...</div><div class="katakoto-item--date">—— 2020年11月21日 09:35</div></div><div class="katakoto-item"><div class="katakoto-item--content">其实我写博客是为了发图的...なんちゃって</div><div class="katakoto-item--date">—— 2020年12月05日 23:35</div></div><div class="katakoto-item"><div class="katakoto-item--content">希望以后每天都能开心...</div><div class="katakoto-item--date">—— 2020年12月07日 10:14</div></div></div></div><div class="tags"><div class="tags-title">内容标签</div><a class="tags-item" href="/tags/React/" title="查看“React”标签下的文章"><i class="material-icons">local_offer</i><span>React</span></a><a class="tags-item" href="/tags/JavaScript/" title="查看“JavaScript”标签下的文章"><i class="material-icons">local_offer</i><span>JavaScript</span></a><a class="tags-item" href="/tags/前端/" title="查看“前端”标签下的文章"><i class="material-icons">local_offer</i><span>前端</span></a><a class="tags-item" href="/tags/Flutter/" title="查看“Flutter”标签下的文章"><i class="material-icons">local_offer</i><span>Flutter</span></a><a class="tags-item" href="/tags/TypeScript/" title="查看“TypeScript”标签下的文章"><i class="material-icons">local_offer</i><span>TypeScript</span></a><a class="tags-item" href="/tags/Vue-js/" title="查看“Vue.js”标签下的文章"><i class="material-icons">local_offer</i><span>Vue.js</span></a><a class="tags-item" href="/tags/前端技术/" title="查看“前端技术”标签下的文章"><i class="material-icons">local_offer</i><span>前端技术</span></a><a class="tags-item" href="/tags/小程序/" title="查看“小程序”标签下的文章"><i class="material-icons">local_offer</i><span>小程序</span></a><a class="tags-item" href="/tags/Taro/" title="查看“Taro”标签下的文章"><i class="material-icons">local_offer</i><span>Taro</span></a><a class="tags-item" href="/tags/日常/" title="查看“日常”标签下的文章"><i class="material-icons">local_offer</i><span>日常</span></a></div></div></div><div class="page-search"><div class="search-body"><div class="search-input-container flex-row flex-cross-center"><i class="material-icons">search</i><input class="search-input flex" placeholder="搜索文章..."></div><div class="search-result" data-dirty="false" data-emptyresult="false"></div></div></div></div><div class="backTopButton mdc-elevation--z4 flex-row flex-center is-hide materialRipple"><i class="material-icons">north</i></div></body></html>
